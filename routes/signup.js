@@ -9,7 +9,7 @@ module.exports = (() => {
         } ;
         if(Username != "") {
             if(Email != ""){
-                if(Password == confirmpassword && Password !=""){
+                if(Password !="" && Password == confirmpassword){
                     res.render('login',{alert:""});
                 }
                 else{
