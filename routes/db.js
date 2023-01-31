@@ -16,9 +16,9 @@ global.db_con.connect((err) => {
     }
 
 }); 
-global.db_con.query('USE kt');
-global.db_con.query('desc users',function(result){
-    console.log(result);
+//global.db_con.query('drop table users');
+global.db_con.query('select * from users',function(result,row){
+    console.log(row);
 });
 
 })

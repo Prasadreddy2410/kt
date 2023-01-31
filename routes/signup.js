@@ -10,6 +10,15 @@ module.exports = (() => {
         if(Username != "") {
             if(Email != ""){
                 if(Password !="" && Password == confirmpassword){
+                    global.db_con.query("SELECT * FROM users",function (err,result){
+                        if(result !== ""){
+                            var sql = `insert into users(Username, Email, Password, confirmpassword) values ("${Username}","${Email}","${Password}","${confirmpassword}")`;
+                            global.db_con.query(sql,function (err,result){
+                                if(err) throw err
+                                console.log(result);
+                            })
+                        }
+                    })
                     res.render('login',{alert:""});
                 }
                 else{
