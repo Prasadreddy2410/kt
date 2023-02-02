@@ -6,20 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body style="text-align: center;">
     <h1>loginform</h1>
     <br>
     <p> <%=alert%></p>
     <br>   
     <form method="post" action="/login_api">
         <label for="name">Name</label> :
-        <input type="text" id="Abhi" name="Abhi"> <br>
+        <input type="text" id="Abhi" name="Abhi"> <br><br>
         <label for="name">Password</label> :
-        <input type="text" id="Password" name="Password"><br>
+        <input type="text" id="Password" name="Password"><br><br>
        <!-- <label for="Email">Email</label>: -->
         <!-- <input type="text" id="Email" name="Email">  <br> -->
         <button type="submit" id="submit" value="sbt">click</button>
         <br>
     </form>
+    <p> for signup click <a href="signup">Signup</a> link</p>
+    <p>for forget click <a herf="forget">forget</a> link</p>
 </body>
+<script>
+    let alert1 = "<%-alert%>";
+    if (alert1 == "msg"){
+        document.getElementById("msg").innerHTML = "login failed"
+    }
+</script>
 </html>

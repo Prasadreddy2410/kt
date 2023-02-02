@@ -17,6 +17,7 @@ global.app.use(bodyParser.urlencoded({ extended: false }));
   require('./routes/db')();
   require('./routes/login')();
   require('./routes/signup')();
+  require('./routes/forget')();
 
   
 

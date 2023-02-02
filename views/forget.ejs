@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forget</title>
+</head>
+<body style="text-align: center;">
+    <h1>forget</h1>
+        <%=alert%>
+    <small id="msg" style="color: black;">
+    </small>
+    <form method="post" action="/forget">
+        <div style="text-align: center;">
+        <label for="Email">Enter email</label><br>
+        <input type="text" id="Email" name="Email">
+        <small style="color: red;" id="err">
+        </small>
+        <br>
+        <label for="Password">Enter Password</label><br>
+        <input type="text" id="Password" name="Password">
+        <br>
+        <label for="confirmpassword">confirmpassword</label><br>
+        <input type="text" id="confirmpassword" name="confirmpassword">
+        <small style="color: red;" id="err_password">
+        </small>
+        <br>
+        <button type="submit">click</button>
+    </div>
+    </form>
+</body>
+<script>
+    let alert1 = '<%-alert%>'
+    if (alert1 == "msg") {
+        document.getElementById('msg').innerHTML = "password changed successfully";
+    } else if (alert1 == "err") {
+        document.getElementById('err').innerHTML = "email id does not exist..";
+    } else if (alert1 == "password") {
+        document.getElementById('err_password').innerHTML = "password doesn't match";
+    }
+</script>
+</html>
