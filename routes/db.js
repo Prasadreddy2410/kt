@@ -20,5 +20,7 @@ global.db_con.connect((err) => {
 global.db_con.query('select * from users',function(result,row){
     console.log(row);
 });
-
+global.db_con.query('select * from theater',function(result,row){
+    console.log(row);
+});
 })

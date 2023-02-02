@@ -18,6 +18,7 @@ global.app.use(bodyParser.urlencoded({ extended: false }));
   require('./routes/login')();
   require('./routes/signup')();
   require('./routes/forget')();
+  require('./routes/theater')();
 
   
 

@@ -7,7 +7,9 @@ module.exports = (() => {
             let user_arr = rows.find(user => user.Username == username);
             if (username == user_arr.Username && psw == user_arr.Password) {
                 console.log("login successful");
-                res.send("login succesfull");
+                //res.send("login succesfull");
+                res.render('theater', { alert1:''});
+
               } else {
             res.render('login', { alert: 'login failed' });
         }
