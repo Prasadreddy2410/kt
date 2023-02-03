@@ -11,6 +11,9 @@
     <%=alert1%>
   </small>
     <h1 style="text-align: center;">Theater</h1><br>
+    <div style="text-align: center;">
+        <small id="p1" style="color: green; text-align: center;"></small>
+    </div>
     <form method="post" action="/theater">
       <div style="text-align: center;">  
         <label for="H">Hallid</label><br>
@@ -32,7 +35,7 @@
 <script>
   let theater = "<%-alert1%>";
   if(theater == "s1") {
-    document.getElementById('s1').innerHTML = "details stored sucessfully";
+    document.getElementById('p1').innerHTML = "details stored sucessfully";
   } else if(theater == "e1") {
     document.getElementById('m1').innerHTML = "please enter no.of.seats";
   }else if(theater == "e2") {

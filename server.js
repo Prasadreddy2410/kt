@@ -19,6 +19,7 @@ global.app.use(bodyParser.urlencoded({ extended: false }));
   require('./routes/signup')();
   require('./routes/forget')();
   require('./routes/theater')();
+  require('./routes/movies')();
 
   
 
