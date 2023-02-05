@@ -20,6 +20,9 @@ global.app.use(bodyParser.urlencoded({ extended: false }));
   require('./routes/forget')();
   require('./routes/theater')();
   require('./routes/movies')();
+  require('./routes/managerlogin')();
+  require('./routes/manager')();
+  require('./routes/booktickets')();
 
   
 

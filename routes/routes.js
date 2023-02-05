@@ -16,4 +16,13 @@ module.exports = (() => {
     global.app.get('/movies',function(req,res){
         res.render('movies', { alert: ''});
     })
+    global.app.get('/managerlogin',function(req,res){
+        res.render('managerlogin',{ alert:''});
+    })
+    global.app.get('/manager',function(req,res){
+        res.render('manager',{ alert :''});
+    })
+    global.app.get('/bookedtickets',function(req,res){
+        res.render('bookedtickets',{ alert : '' });
+    })
 }) 
