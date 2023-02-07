@@ -24,10 +24,10 @@ module.exports = (() => {
                                     if (err) throw err
                                     console.log(result);
                                     res.render('theater',{alert1: 's1'});
-                                })
-                               
-                                }
-                            }
+                                });
+                               }
+                            } 
+                
                         })
                 } else {
                     res.render('theater',{alert1: 'e1'});

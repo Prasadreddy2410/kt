@@ -12,39 +12,54 @@ module.exports = (() => {
                             global.db_con.query(sql, (err, result) => {
                                 if (err == null) {
                                     console.log(result);
-                                    res.render('bookticket', { alert: 's1' });
+                                    res.render('bookedtickets', { alert: 's1' });
                                 } else {
                                     console.log(err.sqlMessage);
-                                    res.render('bookticket', { alert: 'ei' })
+                                    res.render('bookedtickets', { alert: 'ei' })
                                 }
                             })
                         } else {
                             let user_arr = result.find(user => user.ticketno == ticketno);
-                            if (user_arr.seatno != seatno) {
-                                var sql = `insert into tickets(ticketnumber,movieid,seatno) values ("${ticketno}","${showid}","${seatno}")`;
-                                global.db_con.query(sql, (err, result) => {
-                                    if (err == null) {
-                                        console.log(result);
-                                        res.render('bookticket', { alert: 's1' });
-                                    } else {
-                                        console.log(err.sqlMessage);
-                                        res.render('bookticket', { alert: 'ei' })
+                            if(typeof user_arr !== "undefined"){
+                                if (user_arr.seatno != seatno) {
+                                    var sql = `insert into tickets(ticketnumber,movieid,seatno) values ("${ticketno}","${showid}","${seatno}")`;
+                                    global.db_con.query(sql, (err, result) => {
+                                        if (err == null) {
+                                            console.log(result);
+                                            res.render('bookedtickets', { alert: 's1' });
+                                        } else {
+                                            console.log(err.sqlMessage);
+                                            res.render('bookedtickets', { alert: 'ei' })
+                                        }
+                                    })
+                                 }else{
+                                    res.render('bookedtickets', { alert1: 'r2' });
                                     }
-                                })
+                            
                             } else {
-                                res.render('bookticket', { alert1: 'r1' });
+                                var sql = `insert into tickets(ticketnumber,movieid,seatno) values ("${ticketno}","${showid}","${seatno}")`;
+                                 global.db_con.query(sql, (err, result) => {
+                                if (err == null) {
+                                    console.log(result);
+                                    res.render('bookedtickets', { alert: 's1' });
+                                } else {
+                                    console.log(err.sqlMessage);
+                                    res.render('bookedtickets', { alert: 'ei' })
+                                }
+                            })
+                                // res.render('bookedtickets', { alert1: 'r1' });
                             }
                         }
                     })
 
                 } else {
-                    res.render('bookticket', { alert: 'e1' })
+                    res.render('bookedtickets', { alert: 'e1' })
                 }
             } else {
-                res.render('bookticket', { alert: 'e2' })
+                res.render('bookedtickets', { alert: 'e2' })
             }
         } else {
-            res.render('bookticket', { alert: 'e3' })
+            res.render('bookedtickets', { alert: 'e3' })
         }
     })
 })

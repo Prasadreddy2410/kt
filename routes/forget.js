@@ -1,8 +1,8 @@
 module.exports = (() => {
     global.app.post('/forget',(req, res) => {
-        var Email = res.body.Email;
-        var Password = res.body.Password;
-        var confirmpassword = res.body.confirmpassword;
+        var Email = req.body.Email;
+        var Password = req.body.Password;
+        var confirmpassword = req.body.confirmpassword;
         global.db_con.query("SELECT * FROM users", function (err,result){
             var arr = result.find(user => user.Email == Email);
             if (typeof arr !== "undefined"){

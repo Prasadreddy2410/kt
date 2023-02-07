@@ -1,7 +1,7 @@
 module.exports = (() => {
 
 
-    global.app.get('/prasad',function(req, res){
+    global.app.get('/',function(req, res){
         res.render('login',{ alert: '' });
     })
     global.app.get('/signup',function(req, res){

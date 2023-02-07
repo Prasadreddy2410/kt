@@ -23,4 +23,14 @@ global.db_con.query('select * from users',function(result,row){
 global.db_con.query('select * from theater',function(result,row){
     console.log(row);
 });
+global.db_con.query('select * from movies',function(result,row){
+    console.log(row);
+});
+global.db_con.query('select * from tickets',function(result,row){
+    console.log(row);
+});
+global.db_con.query('select * from manager',function(result,row){
+    console.log(row);
+
+});
 })

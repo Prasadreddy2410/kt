@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer</title>
+</head>
+<body>
+    <h1> Customer</h1>
+    <small style="color: aliceblue;">
+        <%=alert%>
+    </small>
+    <br>
+    <form method="post" action="/customer">
+        <label for="theaterid">theaterid:</label>
+        <select id="theaterid" name="theaterid">
+        </select><br>
+        <label for="movieid">movieid:</label>
+        <select id="movieid" name="movieid">
+        </select><br>
+        <label for="moviename">moviename:</label>
+        <select id="moviename" name="moviename">
+        </select><br>
+        <label for="movielanguage">movielanguage:</label>
+        <select id="movielanguage" name="movielanguage">
+        </select><br>
+        <button type="submit">submit</button>
+    </form>
+    <p>click next button to proceed</p>
+</body>
+<script>
+    var movie = '<%-JSON.stringify(movie)%>';
+    var movie = JSON.parse(movie);
+
+    var theater = '<%-JSON.stringify(theater)%>';
+    var theater1 = JSON.parse(theater);
+    // select ids
+    var theaterid = document.getElementById('theaterid');
+    var movieid = document.getElementById('movieid');
+    var moviename = document.getElementById('moviename');
+    var movielanguage = document.getElementById('movielanguage');
+    
+    for (var i=0; i< movie.length; i++) {
+        var opt = document.createElement('option');
+        opt.innerHTML = movie[i].movieid;
+        opt.value = movie[i].movieid;
+        movieid.appendChild(opt);
+        var opt1 = document.createElement('option');
+        opt1.innerHTML = movie[i].moviename;
+        opt1.value = movie[i].moviename;
+        moviename.appendChild(opt1);
+        var opt2 = document.createElement('option');
+        opt2.innerHTML = movie[i].movielanguage;
+        opt2.value = movie[i].movielanguage
+        movielanguage.appendChild(opt2);
+    }
+
+    for(var i=0; i < theater1.length; i++){
+        var opt3 = document.createElement('option');
+        opt3.innerHTML = theater1[i].theaterid;
+        opt3.value = theater1[i].theaterid;
+        theaterid.appendChild(opt3);
+    }
+    var alert = '<%-alert%>'
+    if (alert == 's1'){
+        document.getElementById('s1').innerHTML = "details are stored";
+    }
+</script>
+
+</html>

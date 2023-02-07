@@ -9,39 +9,74 @@ module.exports = (() => {
         var end_time = req.body.end_time;
         var st = new Date(start_time);
         var et = new Date(end_time);
-        if(theaterid != "" || theaterid !=null){
-            if(ticketno != "" || ticketno !=null){
-                if(movieid != "" || movieid !=null){
-                    if(movie_name != "" || movie_name !=null){
-                        if(price != "" || price !=null){
-                            if(st !="" || st !=null){
-                                if(et !="" || et !=null){
+        if(theaterid != ""){
+            if(ticketno != ""){
+                if(movieid != ""){
+                    if(movie_name != ""){
+                        if(price != ""){
+                            if(st !=""){
+                                if(et !=""){
                                     global.db_con.query("select * from theater", (err, result) => {
-                                        let obj = result.find(user => user.theaterid == hallid);
-                                        global.db_con.query("select * from tickets", (err, result) => {
-                                            let obj1 = result.find(user => user.ticketno == ticketno);
-                                            global.db_con.query("select * from movies", (err, result) => {
-                                                let obj2 = result.find(user => user.movieid == movieid);
-                                                if (obj.theaterid == hallid) {
-                                                    if (obj1.ticketno == ticketno) {
-                                                        if (obj2.movieid == movieid && obj2.moviename == movie_name) {
-                                                            var sql = `insert into manager values("${movieid}","${movie_name}","${price}","${st}","${et}","${theaterid}","${ticketno}")`;
-                                                            global.db_con.query(sql, (err, result) => {
-                                                                if (err) throw err
-                                                                console.log(result);
-                                                                res.render('manager', { alert: 's1' });
-                                                            })
+                                        let obj = result.find(user => user.theaterid == theaterid);
+                                        if(typeof obj !== "undefined"){
+                                            global.db_con.query("select * from tickets", (err, result1) => {
+                                                let obj1 = result1.find(user => user.ticketnumber == ticketno);
+                                                if (typeof obj1 !== "undefined"){
+                                                    global.db_con.query("select * from movies", (err, result2) => {
+                                                        let obj2 = result2.find(user => user.movieid == movieid);
+                                                        if (typeof obj2 !== "undefined"){
+                                                             if(obj2.moviename == movie_name) {
+                                                                global.db_con.query("select * from manager",(err ,result3)=> {
+                                                                if (result3 == null || result3 == ""){
+                                                                    var sql = `insert into manager(movieid,moviename,price,start_time,end_time,theaterid,ticketno) values("${movieid}","${movie_name}","${price}","${st}","${et}","${theaterid}","${ticketno}")`;
+                                                                    global.db_con.query(sql, (err, row) =>{
+                                                                        if (err) throw err
+                                                                        console.log(row);
+                                                                        res.render('manager', {alert: 's1'});
+                                                                    })
+                                                                }else{
+                                                                    let obj3 = result3.find(user => user.theaterid == theaterid);
+                                                                    if(typeof obj3 !== "undefined") {
+                                                                        if (obj3.ticketno == ticketno){
+                                                                            res.render('manager', { alert: 't1' });
+                                                                        }else{
+                                                                            var sql = `insert into manager(movieid,moviename,price,start_time,end_time,theaterid,ticketno) values("${movieid}","${movie_name}","${price}","${st}","${et}","${theaterid}","${ticketno}")`;
+                                                                            global.db_con.query(sql, (err, result5) =>{
+                                                                                if (err) throw err
+                                                                                console.log(result5);
+                                                                                res.render('manager',{ alert: 's1'});
+                                                                            })
+
+                                                                        }
+                                                                            
+                                                                        
+                                                                       
+                                                                    }  else{
+                                                                        var sql = `insert into manager(movieid,moviename,price,start_time,end_time,theaterid,ticketno) values("${movieid}","${movie_name}","${price}","${st}","${et}","${theaterid}","${ticketno}")`;
+                                                                            global.db_con.query(sql, (err, result6) =>{
+                                                                                if (err) throw err
+                                                                                console.log(result6);
+                                                                                res.render('manager',{ alert: 's1' });
+                                                                            })
+                                                                        }
+                                                                }
+                                                                
+
+                                                        })
+                                                             }else{
+                                                                    res.render('manager', { alert: 'm1'});
+                                                                        }
                                                         } else {
                                                             res.render('manager', { alert: 'ei1' });
                                                         }
-                                                    } else {
+                                                    })
+                                                }else {
                                                         res.render('manager', { alert: 'ei2' });
                                                     }
-                                                } else {
-                                                    res.render('manager', { alert: 'ei3' });
-                                                }
-                                            });
-                                        });
+                                            })
+                                        } else {
+                                            res.render('manager', { alert: 'ei3' });
+                                        }
                                     })
                                 } else {
                                     res.render('manager', { alert: 'e1' });
