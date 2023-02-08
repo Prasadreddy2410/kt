@@ -33,4 +33,25 @@ global.db_con.query('select * from manager',function(result,row){
     console.log(row);
 
 });
+global.db_con.query("SELECT * FROM hall_seats", function (err, result) {
+    if (result == "") {
+        for (var i = 1, j = 1; i <= 10, j <= 10; j++, i++) {
+            var upperclass = i;
+            var lowerclass = j;
+            var sql = `insert into hall_seats(upperclass,lowerclass) values("${upperclass}","${lowerclass}")`;
+            global.db_con.query(sql, (err, result) => {
+                if (err) {
+                    console.log(err.sqlMessage);
+                } else {
+                    console.log(result);
+                }
+            })
+        }
+    } else {
+        console.log("data stored");
+    }
+});
+global.db_con.query("SELECT * FROM hall_seats", function (err, result) {
+    console.log('hall_seats:', result);
+});
 })

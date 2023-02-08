@@ -11,48 +11,83 @@
     <small style="color: aliceblue;">
         <%=alert%>
     </small>
+    <small id="s1" style="color: green;"></small>
+    <small id="e1" style="color: red;"></small>
     <br>
     <form method="post" action="/customer">
         <label for="theaterid">theaterid:</label>
         <select id="theaterid" name="theaterid">
-        </select><br>
+            <option value=""></option>
+        </select>
+        <small id ="t1" style="color: red;"></small>
+        <br>
         <label for="movieid">movieid:</label>
         <select id="movieid" name="movieid">
-        </select><br>
+            <option value=""></option>
+        </select>
+        <small id ="m1" style="color: red;"></small>
+        <br>
         <label for="moviename">moviename:</label>
         <select id="moviename" name="moviename">
-        </select><br>
+            <option value=""></option>
+        </select>
+        <small id ="mn1" style="color: red;"></small>
+        <br>
         <label for="movielanguage">movielanguage:</label>
         <select id="movielanguage" name="movielanguage">
+            <option value=""></option>
+        </select>
+        <small id="ml1" style="color: red;"></small>
+        <br>
+        <br>
+        <h4>Select either upperclass or lowerclass</h4>
+        <br>
+        <label for ="seatno">upperclass:</label>
+        <select id="seatupno" name="seatupno">
+            <option value=""></option>
+        </select>
+        <small id="eup1" style="color: red;"></small>
+        <br>
+        <p>or</p>
+        <label for ="seatno">lowerclass:</label>
+        <select id="seatlowno" name="seatlowno">
+            <option value=""></option>
         </select><br>
+        <small id="elow1" style="color: red;"></small>
+        <br>
         <button type="submit">submit</button>
     </form>
-    <p>click next button to proceed</p>
+    <p>click submit button to proceed</p>
 </body>
 <script>
     var movie = '<%-JSON.stringify(movie)%>';
-    var movie = JSON.parse(movie);
+    var movie1 = JSON.parse(movie);
 
     var theater = '<%-JSON.stringify(theater)%>';
     var theater1 = JSON.parse(theater);
+
+    var seat = '<%-JSON.stringify(seat)%>';
+    var seats = JSON.parse(seat);
     // select ids
     var theaterid = document.getElementById('theaterid');
     var movieid = document.getElementById('movieid');
     var moviename = document.getElementById('moviename');
     var movielanguage = document.getElementById('movielanguage');
+    var seatupno = document.getElementById('seatupno');
+    var seatlowno = document.getElementById('seatlowno');
     
-    for (var i=0; i< movie.length; i++) {
+    for (var i=0; i< movie1.length; i++) {
         var opt = document.createElement('option');
-        opt.innerHTML = movie[i].movieid;
-        opt.value = movie[i].movieid;
+        opt.innerHTML = movie1[i].movieid;
+        opt.value = movie1[i].movieid;
         movieid.appendChild(opt);
         var opt1 = document.createElement('option');
-        opt1.innerHTML = movie[i].moviename;
-        opt1.value = movie[i].moviename;
+        opt1.innerHTML = movie1[i].moviename;
+        opt1.value = movie1[i].moviename;
         moviename.appendChild(opt1);
         var opt2 = document.createElement('option');
-        opt2.innerHTML = movie[i].movielanguage;
-        opt2.value = movie[i].movielanguage
+        opt2.innerHTML = movie1[i].language;
+        opt2.value = movie1[i].language;
         movielanguage.appendChild(opt2);
     }
 
@@ -62,10 +97,37 @@
         opt3.value = theater1[i].theaterid;
         theaterid.appendChild(opt3);
     }
+    for(var i= 0; i<seats.length; i++){
+        var opt4 = document.createElement('option');
+        opt4.innerHTML = seats[i].upperclass;
+        opt4.value = seats[i].upperclass;
+        seatupno.appendChild(opt4);
+
+        var opt5 = document.createElement('option');
+        opt5.innerHTML = seats[i].lowerclass;
+        opt5.value = seats[i].lowerclass;
+        seatlowno.appendChild(opt5);
+    }
     var alert = '<%-alert%>'
     if (alert == 's1'){
         document.getElementById('s1').innerHTML = "details are stored";
-    }
+    }else if (alert == 'uplow') {
+        document.getElementById('e1').innerHTML = "select either upperclass or lowerclass";
+    } else if (alert == 'e1') {
+        document.getElementById('eup1').innerHTML = "seatno already selected";
+    }else if (alert == 'e2') {
+        document.getElementById('elow1').innerHTML = "seatno already selected";
+    }else if (alert == 'uplow_er'){
+        document.getElementById('e1').innerHTML = "can't select both";
+    } else if (alert1 == 't1id') {
+        document.getElementById('t1').innerHTML = "select theaterid"
+    } else if (alert1 == 'm1id') {
+        document.getElementById('m1').innerHTML = "select movieid"
+    } else if (alert1 == 'mn1') {
+        document.getElementById('mn1').innerHTML = "select moviename"
+    } else if (alert1 == 'lang1') {
+        document.getElementById('ml1').innerHTML = "select language"
+    } 
 </script>
 
 </html>

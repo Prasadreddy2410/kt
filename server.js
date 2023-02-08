@@ -23,6 +23,7 @@ global.app.use(bodyParser.urlencoded({ extended: false }));
   require('./routes/managerlogin')();
   require('./routes/manager')();
   require('./routes/booktickets')();
+  require('./routes/customer')();
 
   
 

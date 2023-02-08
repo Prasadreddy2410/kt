@@ -25,4 +25,7 @@ module.exports = (() => {
     global.app.get('/bookedtickets',function(req,res){
         res.render('bookedtickets',{ alert : '' });
     })
+    global.app.get('/customer',function(req,res){
+        res.render('customer',{ alert : '' });
+    })
 }) 
