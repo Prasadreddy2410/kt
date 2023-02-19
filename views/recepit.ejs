@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recepit</title>
+</head>
+<body style="text-align: left;">
+    <h1>Recepit</h1>
+    <small style="color: white;">
+        <%=alert%>
+            <%=customer%>
+                <%=user%>
+    </small>
+    <label> ticketnumber: <p>
+        <%=user.ticketno%>
+    </p></label>
+    <lable>movieid: <p>
+        <%=customer.movieid%>
+    </p></lable>
+    <label> moviename: <p>
+        <%=customer.moviename%>
+    </p></label>
+    <label>language: <p>
+        <%=customer.language%>
+    </p></label>
+    <lable>theaterid: <p>
+        <%=customer.theaterid%>
+    </p></lable>
+    <lable>show: <p>
+        <%= user.showid%>
+    </p></lable>
+
+    <lable>seatno : <p id="no"></p></lable>
+</body>
+<script>
+    let upper = '<%-customer.upperclass%>';
+    let lower = '<%-customer.lowerclass%>';
+    let seatno = '<%-user.seatno%>';
+    if(upper == seatno){
+        document.getElementById('no').innerHTML = "upperclass:" + seatno;
+    } else if(lower == seatno){
+        document.getElementById('no').innerHTML = "lowerclass:" + seatno;
+    }
+</script>
+</html>

@@ -19,7 +19,7 @@ module.exports = (() => {
                             if(typeof user_arr !== "undefined"){
                                 if (username == user_arr.Username && psw == user_arr.Password) {
                                     console.log("login successful");
-                                    res.render('customer', {  movie: obj1, theater: obj2, seat: obj4 , alert: ''});
+                                    res.render('customer', { movie: obj1, theater: obj2, seat: obj4 , alert: '',name: username,tickets : obj3});
                                 }else{
                                     res.render('login', { alert: 'login failed' });
                                     }

@@ -26,6 +26,9 @@ module.exports = (() => {
         res.render('bookedtickets',{ alert : '' });
     })
     global.app.get('/customer',function(req,res){
-        res.render('customer',{ alert : '' });
+        res.render('customer',{ movie: '', theater: '', seat: '' , alert: '',name: '',tickets : ''});
+    })
+    global.app.get('/recepit',function(req,res){
+        res.render('recepit',{ ticketnumber: '', movieid:'', seatno:'' });
     })
 }) 

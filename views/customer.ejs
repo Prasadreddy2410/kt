@@ -9,7 +9,10 @@
 <body>
     <h1> Customer</h1>
     <small style="color: aliceblue;">
-        <%=alert%>
+     <%=alert%>
+     <%=movie%>
+     <%=theater%>
+     <%=seat%>
     </small>
     <small id="s1" style="color: green;"></small>
     <small id="e1" style="color: red;"></small>
@@ -39,9 +42,17 @@
         </select>
         <small id="ml1" style="color: red;"></small>
         <br>
+        <label>show_type:</label>
+        <select id="show" name="show">
+            <option value=""></option>
+            <option value="morning">morning</option>
+            <option value="afternoon">afternoon</option>
+            <option value="firstshow">firstshow</option>
+            <option value="secondshow">secondshow</option>
+        </select>
         <br>
-        <h4>Select either upperclass or lowerclass</h4>
         <br>
+        <h5> Select either upperclass or lowerclass</h5>
         <label for ="seatno">upperclass:</label>
         <select id="seatupno" name="seatupno">
             <option value=""></option>
@@ -109,25 +120,25 @@
         seatlowno.appendChild(opt5);
     }
     var alert = '<%-alert%>'
-    if (alert == 's1'){
-        document.getElementById('s1').innerHTML = "details are stored";
-    }else if (alert == 'uplow') {
+    if (alert1 == 'uplow') {
         document.getElementById('e1').innerHTML = "select either upperclass or lowerclass";
-    } else if (alert == 'e1') {
+    } else if (alert1 == 'e1') {
         document.getElementById('eup1').innerHTML = "seatno already selected";
-    }else if (alert == 'e2') {
+    }else if (alert1 == 'e2') {
         document.getElementById('elow1').innerHTML = "seatno already selected";
-    }else if (alert == 'uplow_er'){
+    }else if (alert1 == 'uplow_er'){
         document.getElementById('e1').innerHTML = "can't select both";
     } else if (alert1 == 't1id') {
-        document.getElementById('t1').innerHTML = "select theaterid"
+        document.getElementById('t1').innerHTML = "select theaterid";
     } else if (alert1 == 'm1id') {
-        document.getElementById('m1').innerHTML = "select movieid"
+        document.getElementById('m1').innerHTML = "select movieid";
     } else if (alert1 == 'mn1') {
-        document.getElementById('mn1').innerHTML = "select moviename"
+        document.getElementById('mn1').innerHTML = "select moviename";
     } else if (alert1 == 'lang1') {
-        document.getElementById('ml1').innerHTML = "select language"
-    } 
+        document.getElementById('ml1').innerHTML = "select language";
+    } else if (alert1 == 'show') {
+        document.getElementById('ml1').innerHTML = "select show_type";
+    }
 </script>
 
 </html>
