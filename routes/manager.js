@@ -1,103 +1,93 @@
 module.exports = (() => {
     global.app.post("/manager",(req, res) => {
         var theaterid = req.body.theaterid;
-        var ticketno = req.body.ticketno;
         var movieid = req.body.movieid;
         var movie_name = req.body.movie_name;
+        var class_type = req.body.class;
         var price = req.body.price;
         var start_time = req.body.start_time;
         var end_time = req.body.end_time;
         var st = new Date(start_time);
         var et = new Date(end_time);
-        if(theaterid != ""){
-            if(ticketno != ""){
-                if(movieid != ""){
-                    if(movie_name != ""){
-                        if(price != ""){
-                            if(st !=""){
-                                if(et !=""){
-                                    global.db_con.query("select * from theater", (err, result) => {
-                                        let obj = result.find(user => user.theaterid == theaterid);
-                                        if(typeof obj !== "undefined"){
-                                            global.db_con.query("select * from tickets", (err, result1) => {
-                                                let obj1 = result1.find(user => user.ticketnumber == ticketno);
-                                                if (typeof obj1 !== "undefined"){
-                                                    global.db_con.query("select * from movies", (err, result2) => {
-                                                        let obj2 = result2.find(user => user.movieid == movieid);
-                                                        if (typeof obj2 !== "undefined"){
-                                                             if(obj2.moviename == movie_name) {
-                                                                global.db_con.query("select * from manager",(err ,result3)=> {
-                                                                if (result3 == null || result3 == ""){
-                                                                    var sql = `insert into manager(movieid,moviename,price,start_time,end_time,theaterid,ticketno) values("${movieid}","${movie_name}","${price}","${st}","${et}","${theaterid}","${ticketno}")`;
+        global.db_con.query("select * from theater", (err, result) => {
+            let obj = result.filter(user => user);
+            global.db_con.query("select * from movies",(err, result3) =>{
+                let obj2 = result3.filter(user => user);
+                    if(theaterid != ""){
+                        if(movieid != ""){
+                            if(movie_name != ""){
+                                if(class_type !=""){
+                                    if(price != ""){
+                                        if(st !=""){
+                                            if(et !=""){
+                                                var obj3 =obj2.find(user => user.movieid == movieid)
+                                                    if (typeof obj3 !== "undefined"){
+                                                     if(obj3.moviename == movie_name){
+                                                        global.db_con.query("select * from manager", (err, result2) => {
+                                                        if(result2 == null || result2 == ""){
+                                                                var sql = `insert into manager(movieid,moviename,classtype,price,start_time,end_time,theaterid) values("${movieid}","${movie_name}","${class_type}","${price}","${st}","${et}","${theaterid}")`;
                                                                     global.db_con.query(sql, (err, row) =>{
                                                                         if (err) throw err
                                                                         console.log(row);
-                                                                        res.render('manager', {alert: 's1'});
+                                                                        res.render('manager', {alert: 's1',movie: obj2, theater: obj});
                                                                     })
+                                                                
+                                                            
                                                                 }else{
-                                                                    let obj3 = result3.find(user => user.theaterid == theaterid);
-                                                                    if(typeof obj3 !== "undefined") {
-                                                                        if (obj3.ticketno == ticketno){
-                                                                            res.render('manager', { alert: 't1' });
-                                                                        }else{
-                                                                            var sql = `insert into manager(movieid,moviename,price,start_time,end_time,theaterid,ticketno) values("${movieid}","${movie_name}","${price}","${st}","${et}","${theaterid}","${ticketno}")`;
-                                                                            global.db_con.query(sql, (err, result5) =>{
-                                                                                if (err) throw err
-                                                                                console.log(result5);
-                                                                                res.render('manager',{ alert: 's1'});
-                                                                            })
-
-                                                                        }
-                                                                            
-                                                                        
-                                                                       
-                                                                    }  else{
-                                                                        var sql = `insert into manager(movieid,moviename,price,start_time,end_time,theaterid,ticketno) values("${movieid}","${movie_name}","${price}","${st}","${et}","${theaterid}","${ticketno}")`;
+                                                                    let obj3 = result.find(user => user.theaterid == theaterid);
+                                                                    let movie = result.find(user => user.movieid == movieid);
+                                                                    if(typeof obj3 !== "undefined" && typeof movie !== "undefined") {
+                                                                        if(obj3.classtype == class_type && obj3.price == price){
+                                                                            res.render('manager', { alert: 'cl1',movie: obj2, theater: obj });   
+                                                                    }else{
+                                                                        var sql = `insert into manager(movieid,moviename,classtype,price,start_time,end_time,theaterid) values("${movieid}","${movie_name}","${class_type}","${price}","${st}","${et}","${theaterid}")`;
                                                                             global.db_con.query(sql, (err, result6) =>{
                                                                                 if (err) throw err
                                                                                 console.log(result6);
-                                                                                res.render('manager',{ alert: 's1' });
+                                                                                res.render('manager',{ alert: 's1',movie: obj2, theater: obj });
                                                                             })
                                                                         }
                                                                 }
-                                                                
-
-                                                        })
-                                                             }else{
-                                                                    res.render('manager', { alert: 'm1'});
-                                                                        }
-                                                        } else {
-                                                            res.render('manager', { alert: 'ei1' });
-                                                        }
-                                                    })
-                                                }else {
-                                                        res.render('manager', { alert: 'ei2' });
+                                                                else{
+                                                                    var sql =`insert into manager(movieid,moviename,classtype,price,start_time,end_time,theaterid) values("${movieid}","${movie_name}","${class_type}","${price}","${st}","${et}","${theaterid}")`;
+                                                                    global.db_con.query(sql, (err, result) =>{
+                                                                        if (err) throw err
+                                                                        console.log(result);
+                                                                        res.render('manager',{ alert: 's1',movie: obj2, theater: obj });
+                                                                    })
+                                                                }
+                                                            }
+                                                            
+                                                                })
+                                                        }else{
+                                                            res.render('manager', { alert: 'm1',movie: obj2, theater: obj });
+                                                         }
                                                     }
-                                            })
+                                                        } else {
+                                                            res.render('manager', { alert: 'e1',movie: obj2, theater: obj  });
+                                                        }
+                                                    
+                                                }else {
+                                                        res.render('manager', { alert: 'e2',movie: obj2, theater: obj  });
+                                                    }
                                         } else {
-                                            res.render('manager', { alert: 'ei3' });
+                                            res.render('manager', { alert: 'e3',movie: obj2, theater: obj  });
                                         }
-                                    })
-                                } else {
-                                    res.render('manager', { alert: 'e1' });
+                                }
+                                 else {
+                                    res.render('manager', { alert: 'c1',movie: obj2, theater: obj  });
                                 }
                             } else {
-                                res.render('manager', { alert: 'e2' });
+                                res.render('manager', { alert: 'e6',movie: obj2, theater: obj  });
                             }
                         } else {
-                            res.render('manager', { alert: 'e3' });
+                            res.render('manager', { alert: 'e4',movie: obj2, theater: obj  });
                         }
-                    } else {
-                        res.render('manager', { alert: 'e7' });
-                    }
                 } else {
-                    res.render('manager', { alert: 'e6' });
+                    res.render('manager', { alert: 'e5',movie: obj2, theater: obj  });
                 }
-            } else {
-                res.render('manager', { alert: 'e4' });
-            }
-        } else {
-            res.render('manager', { alert: 'e5' });
-        }
+        })
+
     })
+})
 })

@@ -11,12 +11,12 @@ module.exports = (()=>{
         global.db_con.query("SELECT * FROM manager", function (err, result){
             global.db_con.query("SELECT * FROM movies", function (err, result1){
                 global.db_con.query("SELECT * FROM theater", function(err,result2){
-                    global.db_con.query("SELECT * FROM tickets", function(err, result3){
+                    //global.db_con.query("SELECT * FROM tickets", function(err, result3){
                         global.db_con.query("SELECT * FROM hall_seats", function(err, result4){
                             let obj = result.filter(user => user);
-                            let obj1 = result1.filter(user => user.movieid == movieid);
-                            let obj2 = result2.filter(user => user.theaterid == theaterid);
-                            let obj3 = result3.filter(user => user);
+                            let obj1 = result1.filter(user => user);
+                            let obj2 = result2.filter(user => user);
+                            //let obj3 = result3.filter(user => user);
                             let obj4 = result4.filter(seats => seats);
                             let uclass = result4.filter(seats => seats.upperclass == upperclass);
                             let l_class = result4.filter(seats => seats.lowerclass == lowerclass);
@@ -31,12 +31,12 @@ module.exports = (()=>{
                                                             let up = result5.find(user =>user.upperclass == upperclass);
                                                             let low = result6.find(user =>user.lowerclass == lowerclass);
                                                             if (upperclass == "" && lowerclass == "") {
-                                                                 res.render('customer',{alert:'uplow', movie: obj1, theater: obj2, tickets : obj3,seat: obj4});
+                                                                 res.render('customer',{alert:'uplow', movie: obj1, theater: obj2,seat: obj4});
                                                             }else if (lowerclass == ""){
                                                                  if (result5 == ""){
                                                                     var t_num = "11";
                                                                     var ticketno = "23" +t_num;
-                                                                    var sql = `insert into costmerup (theaterid,movieid,moviename,language,upperclass)values("${theaterid}","${movieid}","${moviename}","${movielanguage}","${upperclass}")`;
+                                                                    var sql = `insert into costmerup (theaterid,movieid,moviename,language,upperclass,ticketno)values("${theaterid}","${movieid}","${moviename}","${movielanguage}","${upperclass}","${ticketno}")`;
                                                                     var usersql = `insert into userdata1 (ticketno,showid,username,seatno)values("${ticketno}","${show}","${user}","${upperclass})`;
                                                                     global.db_con.query(usersql,(err, userresult) =>{
                                                                         if(err) throw err.sqlMessage;
@@ -60,7 +60,7 @@ module.exports = (()=>{
                                                                         var lastelement = uresult1.slice(-1);
                                                                         var lastelement1 = lastelement.map(({ticketno}) => ticketno)
                                                                         ticketno = Number(lastelement1) +1;
-                                                                        var sql = `insert into costmerup (theaterid,movieid,moviename,language,upperclass) values ("${theaterid}","${movieid}","${moviename}","${movielanguage}","${upperclass}")`;
+                                                                        var sql = `insert into costmerup (theaterid,movieid,moviename,language,upperclass,ticketno) values ("${theaterid}","${movieid}","${moviename}","${movielanguage}","${upperclass}","${ticketno}")`;
                                                                         var usersql =`insert into userdata1(ticketno,showid,username,seatno) values("${ticketno}","${show}","${user}","${upperclass}")`;
                                                                         global.db_con.query(sql, (err, upresult) => {
                                                                             if(err) throw err.sqlMessage;
@@ -83,7 +83,7 @@ module.exports = (()=>{
                                                                 if(result6 == ""){
                                                                     var t_num = '11';
                                                                     var ticketno = "22" + t_num;
-                                                                    var sql = `insert into costmerlow (theaterid,movieid,moviename,language,lowerclass) values ("${theaterid}","${movieid}","${moviename}","${movielanguage}","${lowerclass}")`;
+                                                                    var sql = `insert into costmerlow (theaterid,movieid,moviename,language,lowerclass,ticketno) values ("${theaterid}","${movieid}","${moviename}","${movielanguage}","${lowerclass}","${ticketno}")`;
                                                                     var usersql =`insert into userdata1(ticketno,showid,username,seatno) values("${ticketno}","${show}","${user}","${lowerclass}")`;
                                                                     global.db_con.query(usersql,(err,userresult) => {
                                                                         if(err) throw err.sqlMessage;
@@ -109,7 +109,7 @@ module.exports = (()=>{
                                                                         var lastelement = uresult1.slice(-1);
                                                                         var lastelement1 = lastelement.map(({ticketno}) => ticketno)
                                                                         ticketno = Number(lastelement1) +1;
-                                                                        var sql = `insert into costmerlow (theaterid,movieid,moviename,language,lowerclass) values ("${theaterid}","${movieid}","${moviename}","${movielanguage}","${lowerclass}")`;
+                                                                        var sql = `insert into costmerlow (theaterid,movieid,moviename,language,lowerclass,ticketno) values ("${theaterid}","${movieid}","${moviename}","${movielanguage}","${lowerclass}","${ticketno}")`;
                                                                         var usersql =`insert into userdata1(ticketno,showid,username,seatno) values("${ticketno}","${show}","${user}","${lowerclass}")`;
                                                                         global.db_con.query(sql,(err, result) => {
                                                                             if(err) throw err.sqlMessage;
@@ -131,29 +131,29 @@ module.exports = (()=>{
                                                                 }
                                                                  
                                                     } else if(upperclass !== "" && lowerclass != ""){
-                                                        res.render('customer',{alert: 'uplow_er',movie: obj1, theater: obj2, tickets : obj3, seat: obj4, name: user });
+                                                        res.render('customer',{alert: 'uplow_er',movie: obj1, theater: obj2, seat: obj4, name: user });
                                                     }
                                                 })
                                             })
                                         })
                                     }else{
-                                        res.render('customer',{alert:'show',movie: obj1, theater: obj2, tickets : obj3, seat: obj4, name: user});
+                                        res.render('customer',{alert:'show',movie: obj1, theater: obj2,seat: obj4, name: user});
                                     }
                                         }else{
-                                            res.render('customer',{alert: 'lang1',movie: obj1, theater: obj2, tickets : obj3, seat: obj4,name: user });
+                                            res.render('customer',{alert: 'lang1',movie: obj1, theater: obj2, seat: obj4,name: user });
                                         }
                                     }else {
-                                        res.render('customer',{alert: 'mn1',movie: obj1, theater: obj2, tickets : obj3, seat: obj4,name: user});
+                                        res.render('customer',{alert: 'mn1',movie: obj1, theater: obj2,seat: obj4,name: user});
                                     }
                                 }else{
-                                    res.render('customer',{alert:'m1id',movie: obj1, theater: obj2, tickets : obj3, seat: obj4,name: user});
+                                    res.render('customer',{alert:'m1id',movie: obj1, theater: obj2, seat: obj4,name: user});
                                 }
                             }else{
-                                res.render('customer',{alert:'t1id',movie: obj1, theater: obj2, tickets : obj3, seat: obj4,name: user});
+                                res.render('customer',{alert:'t1id',movie: obj1, theater: obj2, seat: obj4,name: user});
                             }
                         console.log(result4);})
                         })
-                    })
+                    
                 })
             })
         })

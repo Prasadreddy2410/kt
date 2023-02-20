@@ -8,12 +8,12 @@
 </head>
 <body>
     <h1> Customer</h1>
-    <small style="color: aliceblue;">
+    <!-- <small style="color: aliceblue;">
      <%=alert%>
      <%=movie%>
      <%=theater%>
      <%=seat%>
-    </small>
+    </small> -->
     <small id="s1" style="color: green;"></small>
     <small id="e1" style="color: red;"></small>
     <br>
@@ -66,7 +66,7 @@
         </select><br>
         <small id="elow1" style="color: red;"></small>
         <br>
-        <button type="submit">submit</button>
+        <button type="submit" value="<%= name%>" name="name">submit</button>
     </form>
     <p>click submit button to proceed</p>
 </body>
@@ -119,7 +119,7 @@
         opt5.value = seats[i].lowerclass;
         seatlowno.appendChild(opt5);
     }
-    var alert = '<%-alert%>'
+    var alert1 = '<%-alert%>'
     if (alert1 == 'uplow') {
         document.getElementById('e1').innerHTML = "select either upperclass or lowerclass";
     } else if (alert1 == 'e1') {

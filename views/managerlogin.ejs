@@ -10,7 +10,7 @@
     <small style="color:aliceblue;">
         <%=alert%>
       </small>
-    <form method="post" action="/manager">
+    <form method="post" action="/managerlogin">
         <div style="text-align: center;">
             <label for="login">login</label>:
             <input type="text" id="login" name="login" placeholder="Enter login"><br><br>
@@ -20,5 +20,10 @@
         </div>
     </form> 
 </body>
-
+<script>
+    let alert1 = "<%-alert%>";
+    if (alert1 == "msg") {
+        document.getElementById("msg").innerHTML = "login failed";
+    }
+</script>
 </html>
